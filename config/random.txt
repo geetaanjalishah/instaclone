@@ -1,0 +1,8 @@
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBiZWJjOGNiM2FkYjU3MzY0YjYzOWUiLCJpYXQiOjE3MTIwNTgyMzF9.zGWWnaRtaRVGQglqcwHIVCZIm81srZWJt_ke2eC1JRk
+
+ "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBiZWJjOGNiM2FkYjU3MzY0YjYzOWUiLCJpYXQiOjE3MTIwNTgyMzF9.zGWWnaRtaRVGQglqcwHIVCZIm81srZWJt_ke2eC1JRk",
+    "user": {
+        "_id": "660bebc8cb3adb57364b639e",
+        "name": "Pain",
+        "email": "pain@akatsuki.com"
+    }
