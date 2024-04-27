@@ -39,7 +39,7 @@ const SignIn = () => {
           localStorage.setItem("user",JSON.stringify(data.user))
           dispatch({type: "USER", payload:data.user})
           M.toast({ html: "signed in success", classes: "#43a047 green darken-1" });
-          history.push("/");
+          history("/");
         }
         console.log("Response data:", data);
       })
