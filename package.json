@@ -4,7 +4,10 @@
   "description": "",
   "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "cd client && npm start"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +18,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
