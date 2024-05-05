@@ -3,7 +3,9 @@ Installation
 To run the app in development mode, follow these steps:
 
 1. In the project directory, run:
+   
    npm start
+   
    This command starts the app and launches it in the development mode.
 
 2. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
