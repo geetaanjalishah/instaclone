@@ -158,15 +158,18 @@ const Home = () => {
       });
   };
 
-  
+  if (!state) {
+    return <div>Loading...</div>; // Ensure state is loaded
+  }
+
   return (
     <div className="home">
       {data.map((item) => {
+        if (!item || !item.postedBy) {
+          return null; // Skip rendering if item or item.postedBy is null or undefined
+        }
         return (
           <div className="card home-card" key={item._id}>
-           
-          {/* User name */}
-
             <h5 style={{ padding: "5px" }}>
               <Link
                 to={
@@ -187,8 +190,6 @@ const Home = () => {
                 </i>
               )}
             </h5>
-
-            {/* Post content */}
             <div className="card-image">
               <img src={item.photo} alt="post" />
             </div>
@@ -196,8 +197,6 @@ const Home = () => {
               <i className="material-icons" style={{ color: "red" }}>
                 favorite
               </i>
-
-              {/* Like/Unlike logic */}
               {item.likes.includes(state._id) ? (
                 <i
                   className="material-icons"
@@ -213,12 +212,13 @@ const Home = () => {
                   thumb_up
                 </i>
               )}
-              <h6>{item.likes.length}likes</h6>
+              <h6>{item.likes.length} likes</h6>
               <h6>{item.title}</h6>
               <p>{item.body}</p>
-
-              {/* Comment section */}
               {item.comments.map((record) => {
+                if (!record || !record.postedBy) {
+                  return null; // Skip rendering if record or record.postedBy is null or undefined
+                }
                 return (
                   <div key={record._id}>
                     <span style={{ fontWeight: "500" }}>
@@ -237,8 +237,6 @@ const Home = () => {
                   </div>
                 );
               })}
-
-              {/* Comment input field */}
               <input
                 type="text"
                 placeholder="add a comment"
@@ -255,3 +253,4 @@ const Home = () => {
 };
 
 export default Home;
+
