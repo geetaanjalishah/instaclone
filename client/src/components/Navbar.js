@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import M from "materialize-css";
+
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
   const [search, setSearch] = useState("");
-  const [userDetails, setUserDetails] = useState([])
+  const [userDetails, setUserDetails] = useState([]);
   const history = useNavigate();
   const searchModal = useRef(null);
 
@@ -14,11 +15,11 @@ const Navbar = () => {
   }, []);
 
   const handleSigninClick = () => {
-    // console.log("Signin link clicked");
+    // Placeholder for future use
   };
 
   const handleSignupClick = () => {
-    // console.log("Signup link clicked");
+    // Placeholder for future use
   };
 
   const renderList = () => {
@@ -33,7 +34,6 @@ const Navbar = () => {
             search
           </i>
         </li>,
-
         <li key="profile">
           <Link to="/profile">Profile</Link>
         </li>,
@@ -53,7 +53,7 @@ const Navbar = () => {
             }}
           >
             Logout
-          </button>{" "}
+          </button>
         </li>,
       ];
     } else {
@@ -71,22 +71,24 @@ const Navbar = () => {
       ];
     }
   };
- 
-  const fetchUsers = (query)=>{
-    setSearch(query)
-    fetch('/search-users',{
-      method:"post",
-      headers:{
-        "Content-Type":"application/json"
+
+  const fetchUsers = (query) => {
+    setSearch(query);
+    fetch('/search-users', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify({
-        query
-      })
-    }).then(res=>res.json())
-    .then(results=>{
-      setUserDetails(results.user)
+      body: JSON.stringify({ query })
     })
- }
+    .then(res => res.json())
+    .then(results => {
+      setUserDetails(results.users);
+    })
+    .catch(error => {
+      console.error("Error fetching users:", error);
+    });
+  };
 
   return (
     <nav>
@@ -98,7 +100,6 @@ const Navbar = () => {
           {renderList()}
         </ul>
       </div>
-
       <div
         id="modal1"
         className="modal"
@@ -116,9 +117,8 @@ const Navbar = () => {
             {userDetails.map((item) => {
               return (
                 <Link
-                  to={
-                    item._id !== state._id ? "/profile/" + item._id : "/profile"
-                  }
+                  key={item._id}
+                  to={item._id !== state._id ? "/profile/" + item._id : "/profile"}
                   onClick={() => {
                     M.Modal.getInstance(searchModal.current).close();
                     setSearch("");
@@ -139,7 +139,6 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      
     </nav>
   );
 };

@@ -15,7 +15,6 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setData(result.posts || []);
       })
       .catch((error) => {
@@ -95,7 +94,6 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         const newData = data.map((item) => {
           if (item._id === result._id) {
             return result;
@@ -126,7 +124,6 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         const newData = data.filter((item) => {
           return item._id !== result._id;
         });
@@ -143,7 +140,6 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         const newData = data.map((item) => {
           if (item._id === result._id) {
             return result;
@@ -205,10 +201,7 @@ const Home = () => {
                   thumb_down
                 </i>
               ) : (
-                <i
-                  className="material-icons"
-                  onClick={() => likePost(item._id)}
-                >
+                <i className="material-icons" onClick={() => likePost(item._id)}>
                   thumb_up
                 </i>
               )}
@@ -216,34 +209,45 @@ const Home = () => {
               <h6>{item.title}</h6>
               <p>{item.body}</p>
               {item.comments.map((record) => {
-                if (!record || !record.postedBy) {
-                  return null; // Skip rendering if record or record.postedBy is null or undefined
-                }
                 return (
                   <div key={record._id}>
-                    <span style={{ fontWeight: "500" }}>
-                      {record.postedBy.name}
-                    </span>
-                    {record.text}
-                    {record.postedBy._id === state._id && (
-                      <i
-                        className=" tiny material-icons"
-                        style={{ float: "right" }}
-                        onClick={() => deleteComment(item._id, record._id)}
-                      >
-                        delete
-                      </i>
-                    )}
+                    <h6>
+                      <span style={{ fontWeight: "500" }}>
+                        {record.postedBy.name}
+                      </span>{" "}
+                      {record.text}
+                      {record.postedBy._id === state._id && (
+                        <i
+                          className="material-icons"
+                          style={{
+                            fontSize: "1rem",
+                            float: "right",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => deleteComment(item._id, record._id)}
+                        >
+                          delete
+                        </i>
+                      )}
+                    </h6>
                   </div>
                 );
               })}
-              <input
-                type="text"
-                placeholder="add a comment"
-                value={comment}
-                onChange={handleCommentChange}
-                onKeyDown={(e) => handleKeyPress(e, item._id)}
-              />
+              <div className="comment-input">
+                <input
+                  type="text"
+                  placeholder="add a comment"
+                  value={comment} // Bind comment state to input value
+                  onChange={handleCommentChange} // Handle input change
+                  onKeyPress={(e) => handleKeyPress(e, item._id)} // Handle Enter key press
+                />
+                <button
+                  className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                  onClick={() => makeComment(item._id)} // Call makeComment function on button click
+                >
+                  Add Comment
+                </button>
+              </div>
             </div>
           </div>
         );
@@ -253,4 +257,3 @@ const Home = () => {
 };
 
 export default Home;
-
