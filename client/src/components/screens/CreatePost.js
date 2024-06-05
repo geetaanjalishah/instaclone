@@ -39,7 +39,7 @@ const CreatePost = () => {
           console.log(err);
         });
     }
-  }, [url]);
+  }, [body, history, title, url]); // Add body, history, title, and url as dependencies
 
   const postDetails = () => {
     const data = new FormData();

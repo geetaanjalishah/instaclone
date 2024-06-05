@@ -60,8 +60,8 @@ if(image) {
         console.log(err);
       });
 }
-  }, [image
-  ])
+  }, [dispatch, image, state]);
+  
   const updatePhoto = (e) => {
     const file = e.target.files[0];
     setImage(file);

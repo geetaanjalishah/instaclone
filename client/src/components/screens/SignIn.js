@@ -4,7 +4,7 @@ import M from "materialize-css";
 import { UserContext } from "../../App";
 
 const SignIn = () => {
-  const {state, dispatch} = useContext(UserContext)
+  const {dispatch} = useContext(UserContext)
   const history = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
