@@ -1,14 +1,13 @@
-import React,{useContext, useState} from "react";
-import { Link,useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import M from "materialize-css";
 import { UserContext } from "../../App";
 
 const SignIn = () => {
-  const {dispatch} = useContext(UserContext)
+  const { dispatch } = useContext(UserContext);
   const history = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  // console.log("SignIn component rendered");
 
   const postData = () => {
     if (
@@ -26,18 +25,18 @@ const SignIn = () => {
       },
       body: JSON.stringify({
         password,
-        email
-      })
+        email,
+      }),
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
         if (data.error) {
           M.toast({ html: data.error, classes: "#c62828 red darken-3" });
         } else {
-          localStorage.setItem("jwt",data.token)
-          localStorage.setItem("user",JSON.stringify(data.user))
-          dispatch({type: "USER", payload:data.user})
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "USER", payload: data.user });
           M.toast({ html: "signed in success", classes: "#43a047 green darken-1" });
           history("/");
         }
@@ -49,7 +48,6 @@ const SignIn = () => {
   };
 
   return (
-    
     <div className="mycard">
       <div className="card auth-card input-field ">
         <h2>Instagram</h2>
@@ -65,8 +63,10 @@ const SignIn = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="btn waves-effect waves-light #64b5f6 blue lighten-2"
-        onClick={ () => postData()}>
+        <button
+          className="btn waves-effect waves-light #64b5f6 blue lighten-2"
+          onClick={() => postData()}
+        >
           SignIn
         </button>
         <h6>
@@ -74,8 +74,6 @@ const SignIn = () => {
         </h6>
       </div>
     </div>
-
-
   );
 };
 

@@ -11,10 +11,11 @@ const SignUp = () => {
   const [url, setUrl] = useState(undefined);
 
   useEffect(() => {
-    if(url){
-      uploadFields()
+    if (url) {
+      uploadFields();
     }
-  })
+  }, [url]); // Add the dependency array to useEffect
+
   const uploadPic = () => {
     const data = new FormData();
     data.append("file", image);
@@ -31,7 +32,7 @@ const SignUp = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   const uploadFields = () => {
     if (
@@ -51,7 +52,7 @@ const SignUp = () => {
         name,
         password,
         email,
-        pic: url
+        pic: url,
       }),
     })
       .then((res) => {
@@ -70,14 +71,13 @@ const SignUp = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
   const postData = () => {
-    if(image){
-      uploadPic()
-    }else {
-      uploadFields()
+    if (image) {
+      uploadPic();
+    } else {
+      uploadFields();
     }
-    
   };
 
   return (

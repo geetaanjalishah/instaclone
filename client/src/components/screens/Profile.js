@@ -61,7 +61,7 @@ if(image) {
       });
 }
   }, [dispatch, image, state]);
-  
+
   const updatePhoto = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -128,7 +128,7 @@ if(image) {
             key={item._id}
             className="item"
             src={item.photo}
-            alt="{item.title}"
+            alt={item.title}
           />
         ))}
       </div>
