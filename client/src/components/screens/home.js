@@ -187,7 +187,7 @@ const Home = () => {
               )}
             </h5>
             <div className="card-image">
-              <img src={item.photo} alt="post" />
+            <img src={item.photo} alt={`Post by ${item.postedBy.name}`} />
             </div>
             <div className="card-content">
               <i className="material-icons" style={{ color: "red" }}>
