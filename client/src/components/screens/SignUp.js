@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import M from "materialize-css";
 
@@ -10,11 +10,46 @@ const SignUp = () => {
   const [image, setImage] = useState("");
   const [url, setUrl] = useState(undefined);
 
+  const uploadFields = useCallback(() => {
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
+      M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
+      return;
+    }
+    fetch("/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        password,
+        email,
+        pic: url,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          M.toast({ html: data.error, classes: "#c62828 red darken-3" });
+        } else {
+          M.toast({ html: data.message, classes: "#43a047 green darken-1" });
+          history("/signin");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [email, name, password, url, history]);
+
   useEffect(() => {
     if (url) {
       uploadFields();
     }
-  }, [url, uploadFields]); // Add the dependency array to useEffect
+  }, [url, uploadFields]);
 
   const uploadPic = () => {
     const data = new FormData();
@@ -34,44 +69,6 @@ const SignUp = () => {
       });
   };
 
-  const uploadFields = () => {
-    if (
-      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
-      )
-    ) {
-      M.toast({ html: "invalid email", classes: "#c62828 red darken-3" });
-      return;
-    }
-    fetch("/signup", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        password,
-        email,
-        pic: url,
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log({ data });
-        if (data.error) {
-          M.toast({ html: data.error, classes: "#c62828 red darken-3" });
-        } else {
-          M.toast({ html: data.message, classes: "#43a047 green darken-1" });
-          history("/signin");
-        }
-        // console.log("Response data:", data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   const postData = () => {
     if (image) {
       uploadPic();
@@ -86,19 +83,19 @@ const SignUp = () => {
         <h2>Instagram</h2>
         <input
           type="text"
-          placeholder="name"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -115,10 +112,10 @@ const SignUp = () => {
           className="btn waves-effect waves-light #64b5f6 blue lighten-2"
           onClick={() => postData()}
         >
-          SignUp
+          Sign Up
         </button>
         <h6>
-          <Link to="/signIn">Already have an account ?</Link>
+          <Link to="/signIn">Already have an account?</Link>
         </h6>
       </div>
     </div>

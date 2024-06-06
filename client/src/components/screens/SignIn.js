@@ -15,7 +15,7 @@ const SignIn = () => {
         email
       )
     ) {
-      M.toast({ html: "invalid email", classes: "#c62828 red darken-3" });
+      M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
     fetch("/signin", {
@@ -30,17 +30,15 @@ const SignIn = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.error) {
           M.toast({ html: data.error, classes: "#c62828 red darken-3" });
         } else {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "USER", payload: data.user });
-          M.toast({ html: "signed in success", classes: "#43a047 green darken-1" });
+          M.toast({ html: "Signed in successfully", classes: "#43a047 green darken-1" });
           history("/");
         }
-        console.log("Response data:", data);
       })
       .catch((err) => {
         console.log(err);
@@ -53,13 +51,13 @@ const SignIn = () => {
         <h2>Instagram</h2>
         <input
           type="text"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -67,7 +65,7 @@ const SignIn = () => {
           className="btn waves-effect waves-light #64b5f6 blue lighten-2"
           onClick={() => postData()}
         >
-          SignIn
+          Sign In
         </button>
         <h6>
           <Link to="/signUp">Don't have an account?</Link>
