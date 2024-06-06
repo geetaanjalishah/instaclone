@@ -14,7 +14,7 @@ const SignUp = () => {
     if (url) {
       uploadFields();
     }
-  }, [url]); // Add the dependency array to useEffect
+  }, [url, uploadFields]); // Add the dependency array to useEffect
 
   const uploadPic = () => {
     const data = new FormData();

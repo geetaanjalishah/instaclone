@@ -5,15 +5,18 @@
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node App.js",
     "server": "node App.js",
-    "client": "cd client && npm start"
+    "client": "cd client && npm start",
+    "client:install": "cd client && npm install",
+    "client:build": "cd client && npm run build",
+    "install": "npm install && npm run client:install",
+    "build": "npm run client:build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
@@ -21,7 +24,8 @@
     "mongoose": "^8.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^3.0.1",
+    "concurrently": "^8.2.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
