@@ -5,7 +5,7 @@
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run \" \"npm run client\"",
     "server": "node App.js",
     "client": "cd client && npm start"
   },
@@ -24,6 +24,11 @@
     "react-scripts": "^3.0.1"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "@babel/plugin-proposal-private-property-in-object": "^7.14.5",
+    "@babel/plugin-transform-optional-chaining": "^7.14.5",
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.14.5",
+    "@babel/plugin-transform-class-properties": "^7.14.5",
+    "@babel/plugin-transform-numeric-separator": "^7.14.5"
   }
 }
