@@ -58,19 +58,16 @@ router.post("/signin", (req, res) => {
         if (doMatch) {
           const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
           const { _id, name, email, followers, following, pic } = savedUser;
-          console.log("Login successful");
           res.json({ message: "Login successful", token, user: { _id, name, email, followers, following, pic } });
         } else {
-          console.log("Invalid email or password");
           return res.status(422).json({ error: "Invalid email or password" });
         }
       });
     })
     .catch((err) => {
-      console.log("Internal server error:", err);
+      console.log(err);
       return res.status(500).json({ error: "Internal server error" });
     });
 });
 
 module.exports = router;
-
