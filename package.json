@@ -5,7 +5,7 @@
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node App.js && npm start",
+    "start": "node App.js",
     "client": "cd client && npm start",
     "build": "npm install --prefix client && npm run build --prefix client"
   },
