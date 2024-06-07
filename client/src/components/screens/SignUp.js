@@ -20,7 +20,7 @@ const SignUp = () => {
       return;
     }
     fetch("/api/auth/signup", {
-      method: "post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,7 +57,7 @@ const SignUp = () => {
     data.append("upload_preset", "insta-clone");
     data.append("cloud_name", "geetaanjalishah");
     fetch("https://api.cloudinary.com/v1_1/geetaanjalishah/image/upload", {
-      method: "post",
+      method: "POST",
       body: data,
     })
       .then((res) => res.json())
