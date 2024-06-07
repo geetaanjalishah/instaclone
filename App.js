@@ -1,7 +1,7 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const mongoose = require("mongoose");
-const path = require('path');
+const path = require("path");
 const { MONGOURI } = require("./config/keys");
 
 const app = express();
@@ -21,20 +21,19 @@ mongoose.connection.on("error", (err) => {
 });
 
 require("./models/user");
-require('./models/post');
+require("./models/post");
 
 app.use(express.json());
 app.use(cors());
 
-// Use /api prefix for API routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/post", require("./routes/post"));
 app.use("/api/user", require("./routes/user"));
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static('client/build'));
+  app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 

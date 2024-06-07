@@ -3,12 +3,12 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
-const {JWT_SECRET} = require('../config/keys')
-const requireLogin = require('../middleware/requiredLogin');
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config/keys");
+const requireLogin = require("../middleware/requireLogin");
 
 router.post("/signup", (req, res) => {
-  const { name, email, password, pic} = req.body;
+  const { name, email, password, pic } = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ error: "please add all the fields" });
   }
@@ -24,7 +24,7 @@ router.post("/signup", (req, res) => {
           email,
           password: hashedpassword,
           name,
-          pic
+          pic,
         });
         user
           .save()
@@ -36,8 +36,7 @@ router.post("/signup", (req, res) => {
           });
       });
     })
-
-    .catch((er) => {
+    .catch((err) => {
       console.log(err);
     });
 });
