@@ -6,3 +6,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBiZWJjOGNiM2FkYjU3MzY0YjYzOWU
         "name": "Pain",
         "email": "pain@akatsuki.com"
     }
+
+
+"start": "node app.js",
+"build": "npm install --prefix client && npm run build --prefix client"
