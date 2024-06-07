@@ -10,14 +10,16 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
 
   const postData = () => {
-    // Corrected the regular expression for email validation
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
+    if (
+      !/^(([^<>()[\\.,;:\s@"]+(\.[^<>()[\\.,;:\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
       M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
-    fetch("/api/auth/signin", {
-      method: "POST",
+    fetch("https://instaclone-zeta-beryl.vercel.app/api/auth/signin", {
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
@@ -50,7 +52,7 @@ const SignIn = () => {
 
   return (
     <div className="mycard">
-      <div className="card auth-card input-field">
+      <div className="card auth-card input-field ">
         <h2>Instagram</h2>
         <input
           type="text"
@@ -66,12 +68,12 @@ const SignIn = () => {
         />
         <button
           className="btn waves-effect waves-light #64b5f6 blue lighten-2"
-          onClick={postData}
+          onClick={() => postData()}
         >
           Sign In
         </button>
         <h6>
-          <Link to="/signup">Don't have an account?</Link>
+          <Link to="/signUp">Don't have an account?</Link>
         </h6>
       </div>
     </div>
