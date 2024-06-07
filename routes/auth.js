@@ -3,18 +3,21 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require('../config/keys');
+const jwt = require("jsonwebtoken")
+const {JWT_SECRET} = require('../config/keys')
+const requireLogin = require('../middleware/requiredLogin');
 
 router.post("/signup", (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, pic} = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ error: "please add all the fields" });
   }
   User.findOne({ email: email })
     .then((savedUser) => {
       if (savedUser) {
-        return res.status(422).json({ error: "user already exists with that email" });
+        return res
+          .status(422)
+          .json({ error: "user already exists with that email" });
       }
       bcrypt.hash(password, 13).then((hashedpassword) => {
         const user = new User({
@@ -23,7 +26,8 @@ router.post("/signup", (req, res) => {
           name,
           pic
         });
-        user.save()
+        user
+          .save()
           .then((user) => {
             res.json({ message: "saved successfully" });
           })
@@ -32,12 +36,15 @@ router.post("/signup", (req, res) => {
           });
       });
     })
-    .catch((err) => {
+
+    .catch((er) => {
       console.log(err);
     });
 });
 
 router.post("/signin", (req, res) => {
+  console.log("Signin route hit");
+
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "please enter email and password" });
