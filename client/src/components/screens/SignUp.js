@@ -19,8 +19,8 @@ const SignUp = () => {
       M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
-    fetch("/api/auth/signup", {
-      method: "POST",
+    fetch("/signup", {
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,7 +57,7 @@ const SignUp = () => {
     data.append("upload_preset", "insta-clone");
     data.append("cloud_name", "geetaanjalishah");
     fetch("https://api.cloudinary.com/v1_1/geetaanjalishah/image/upload", {
-      method: "POST",
+      method: "post",
       body: data,
     })
       .then((res) => res.json())
