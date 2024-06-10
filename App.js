@@ -10,14 +10,15 @@ mongoose.connect(MONGOURI, {
   useUnifiedTopology: true,
 });
 mongoose.connection.on("connected", () => {
-  console.log("connected to mongo");
+  console.log("connected to mango");
 });
+
 mongoose.connection.on("error", (err) => {
   console.log("error connecting", err);
 });
 
 require("./models/user");
-require('./models/post');
+require('./models/post')
 
 app.use(express.json());
 app.use(cors());
@@ -25,6 +26,8 @@ app.use(cors());
 app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
 app.use(require("./routes/user"));
+
+
 
 app.listen(PORT, () => {
   console.log("server is running on", PORT);
