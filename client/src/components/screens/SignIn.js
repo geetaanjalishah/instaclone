@@ -18,7 +18,7 @@ const SignIn = () => {
       M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
-    fetch("https://instaclone-zeta-beryl.vercel.app/signin", {
+    fetch("/signin", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,12 @@ const SignIn = () => {
         email,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok ' + res.statusText);
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.error) {
           M.toast({ html: data.error, classes: "#c62828 red darken-3" });
@@ -43,6 +48,7 @@ const SignIn = () => {
       .catch((err) => {
         console.log(err);
       });
+    
   };
 
   return (
