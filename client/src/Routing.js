@@ -16,7 +16,7 @@ const Routing = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user && !window.location.pathname.startsWith("https://instaclone-zeta-beryl.vercel.app/signin")) 
+    if (!user && !window.location.pathname.startsWith("/signin")) 
     {
       navigate("/signup"); // Navigate to sign-in page if user is not authenticated
     }
