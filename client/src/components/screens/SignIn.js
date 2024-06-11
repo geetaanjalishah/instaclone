@@ -18,8 +18,8 @@ const SignIn = () => {
       M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
-    fetch("/signin", {
-      method: "post",
+    fetch("https://instaclone-zeta-beryl.vercel.app/api/signin", { // Updated URL
+    method: "post",
       headers: {
         "Content-Type": "application/json",
       },

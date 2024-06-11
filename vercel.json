@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/signin", "destination": "/api/signin" }
+    { "source": "/api/(.*)", "destination": "/api/$1" }
   ]
 }

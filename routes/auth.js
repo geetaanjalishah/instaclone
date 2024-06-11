@@ -9,12 +9,6 @@ const requireLogin = require('../middleware/requiredLogin');
 
 
 
-// router.post("/signout", (req, res) => {
-//   // Clear the JWT token from the client-side
-//   res.clearCookie('jwtToken'); // Clear the JWT token stored in cookies, if any
-//   res.status(200).json({ message: 'Signed out successfully' });
-// });
-
 router.post("/signup", (req, res) => {
   const { name, email, password, pic} = req.body;
   if (!email || !password || !name) {
