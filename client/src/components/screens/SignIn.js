@@ -16,40 +16,41 @@ const SignIn = () => {
       M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
+
     fetch("https://instaclone-zeta-beryl.vercel.app/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password,
-        email,
-      }),
-    })
-    .then((res) => {
-      console.log("Response status:", res.status);
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      console.log("Data received:", data);
-      if (data.error) {
-        M.toast({ html: data.error, classes: "#c62828 red darken-3" });
-      } else {
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        dispatch({ type: "USER", payload: data.user });
-        M.toast({ html: "Signed in successfully", classes: "#43a047 green darken-1" });
-        history("/");
-      }
-    })
-    .catch((err) => {
-      console.log("Error:", err.message);
-      M.toast({ html: "An error occurred. Please try again.", classes: "#c62828 red darken-3" });
-    });
-  };
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    password,
+    email,
+  }),
+})
+.then((res) => {
+  console.log("Response status:", res.status);
+  if (!res.ok) {
+    throw new Error(`HTTP error! Status: ${res.status}`);
+  }
+  return res.json();
+})
+.then((data) => {
+  console.log("Data received:", data);
+  if (data.error) {
+    M.toast({ html: data.error, classes: "#c62828 red darken-3" });
+  } else {
+    localStorage.setItem("jwt", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    dispatch({ type: "USER", payload: data.user });
+    M.toast({ html: "Signed in successfully", classes: "#43a047 green darken-1" });
+    history("/");
+  }
+})
+.catch((err) => {
+  console.log("Error:", err.message);
+  M.toast({ html: "An error occurred. Please try again.", classes: "#c62828 red darken-3" });
+});
+
 
   return (
     <div className="mycard">
@@ -80,5 +81,6 @@ const SignIn = () => {
     </div>
   );
 };
+}
 
 export default SignIn;
