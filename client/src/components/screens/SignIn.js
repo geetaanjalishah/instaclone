@@ -19,7 +19,7 @@ const SignIn = () => {
       return;
     }
     
-    fetch("https://instaclone-zeta-beryl.vercel.app/api/signin", {
+    fetch("/api/signin", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
