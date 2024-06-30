@@ -10,14 +10,16 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
 
   const postData = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
-    if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
       M.toast({ html: "Invalid email", classes: "#c62828 red darken-3" });
       return;
     }
     fetch("https://instaclone-zeta-beryl.vercel.app/signin", {
-      method: "POST",
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
@@ -26,29 +28,21 @@ const SignIn = () => {
         email,
       }),
     })
-    .then((res) => {
-      console.log("Response status:", res.status);
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      console.log("Data received:", data);
-      if (data.error) {
-        M.toast({ html: data.error, classes: "#c62828 red darken-3" });
-      } else {
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        dispatch({ type: "USER", payload: data.user });
-        M.toast({ html: "Signed in successfully", classes: "#43a047 green darken-1" });
-        history("/");
-      }
-    })
-    .catch((err) => {
-      console.log("Error:", err.message);
-      M.toast({ html: "An error occurred. Please try again.", classes: "#c62828 red darken-3" });
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          M.toast({ html: data.error, classes: "#c62828 red darken-3" });
+        } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "USER", payload: data.user });
+          M.toast({ html: "Signed in successfully", classes: "#43a047 green darken-1" });
+          history("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -69,7 +63,7 @@ const SignIn = () => {
         />
         <button
           className="btn waves-effect waves-light #64b5f6 blue lighten-2"
-          onClick={postData}
+          onClick={() => postData()}
         >
           Sign In
         </button>

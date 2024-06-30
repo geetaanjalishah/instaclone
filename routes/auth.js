@@ -44,10 +44,8 @@ router.post("/signup", (req, res) => {
     });
 });
 
-
-router.post("/signin", (req, res) => {
+router.post("https://instaclone-zeta-beryl.vercel.app/signin", (req, res) => {
   const { email, password } = req.body;
-  console.log("Received signin request with email:", email);
   if (!email || !password) {
     return res.status(422).json({ error: "please enter email and password" });
   }
@@ -66,7 +64,7 @@ router.post("/signin", (req, res) => {
     });
   })
   .catch((err) => {
-    console.log("Error:", err);
+    console.log(err);
     return res.status(500).json({ error: "Internal server error" });
   });
 });
