@@ -10,3 +10,8 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBiZWJjOGNiM2FkYjU3MzY0YjYzOWU
 
 "start": "node app.js",
 "build": "npm install --prefix client && npm run build --prefix client"
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/App.js" }
+  ]
+}
